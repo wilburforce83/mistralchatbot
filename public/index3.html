@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mistral Chatbot - Dark Mode</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      /* Optional: Custom scrollbar styling */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #1f2937; /* Dark gray */
+      }
+      ::-webkit-scrollbar-thumb {
+        background-color: #4b5563; /* Gray */
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-900 text-gray-100">
+    <div class="max-w-3xl mx-auto p-6">
+      <header class="mb-6">
+        <h1 class="text-3xl font-bold text-green-400 mb-2">Mistral Chatbot</h1>
+        <p class="text-sm text-gray-400">Your modern dark mode assistant</p>
+      </header>
+
+      <!-- Chat window -->
+      <div id="chat-box" class="bg-gray-800 rounded-lg shadow-lg p-4 h-[60vh] overflow-y-auto mb-4 space-y-4">
+        <!-- Chat messages will be appended here -->
+      </div>
+
+      <!-- Chat input -->
+      <form id="chat-form" class="flex gap-3">
+        <input
+          id="chat-input"
+          type="text"
+          placeholder="Type your message..."
+          class="flex-1 p-3 rounded-lg bg-gray-700 border border-gray-600 text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 transition"
+          autocomplete="off"
+        />
+        <button
+          type="submit"
+          class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-3 rounded-lg transition"
+        >
+          Send
+        </button>
+      </form>
+
+      <!-- TTS Toggle -->
+      <div class="mt-4 flex items-center">
+        <input id="tts-toggle" type="checkbox" class="h-4 w-4 text-green-500 focus:ring-green-400 border-gray-600 rounded" />
+        <label for="tts-toggle" class="ml-2 text-sm text-gray-400">Enable TTS Streaming</label>
+      </div>
+    </div>
+
+    <!-- Include Marked for Markdown parsing -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- Include your app.js script -->
+    <script src="app.js"></script>
+  </body>
+</html>

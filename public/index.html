@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mistral Chatbot - Dark Mode</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      /* Custom scrollbar styling */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #1f2937;
+      }
+      ::-webkit-scrollbar-thumb {
+        background-color: #4b5563;
+        border-radius: 4px;
+      }
+      
+      /* Chat message styling for user and bot */
+      .chat-msg {
+        padding: 0.75rem;
+        margin-bottom: 0.5rem;
+        border-radius: 0.5rem;
+        max-width: 95%;
+        word-wrap: break-word;
+      }
+      .chat-box {
+        min-height: 70vh;
+        max-height: 75vh;
+      }
+      .chat-user {
+        background-color: #174a3c; /* Dark green */
+        align-self: flex-end;
+        max-width: 78% !important;
+        text-align: right;
+      }
+      .chat-bot {
+        background-color: #353b4e; /* Dark blue */
+        align-self: flex-start;
+        text-align: left;
+      }
+      /* Base Markdown Styling */
+  .markdown {
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    color: #e2e8f0; /* light gray */
+  }
+  
+  .markdown h1,
+  .markdown h2,
+  .markdown h3,
+  .markdown h4,
+  .markdown h5,
+  .markdown h6 {
+    margin-top: 1.2rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+  
+  .markdown h1 {
+    font-size: 1.5rem;
+    border-bottom: 2px solid #4b5563;
+    padding-bottom: 0.25rem;
+  }
+  
+  .markdown h2 {
+    font-size: 1.3rem;
+    border-bottom: 1px solid #4b5563;
+    padding-bottom: 0.25rem;
+  }
+  
+  .markdown h3 {
+    font-size: 1.2rem;
+  }
+  
+  .markdown p {
+    margin-bottom: 0.8rem;
+  }
+  
+  .markdown a {
+    color: #535d6f;
+    text-decoration: underline;
+  }
+  
+  /* Blockquote */
+  .markdown blockquote {
+    border-left: 4px solid #4b5563;
+    padding-left: 1rem;
+    color: #9ca3af;
+    font-style: italic;
+    margin: 1rem 0;
+  }
+  
+  /* Lists */
+  .markdown ul,
+  .markdown ol {
+    margin: 1rem 0;
+    padding-left: 1.5rem;
+  }
+  
+  .markdown li {
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Inline Code */
+  .markdown code {
+    background-color: #2d3748;
+    color: #fbd38d;
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.3rem;
+    font-family: 'Fira Code', monospace;
+  }
+  
+  /* Code Blocks */
+  .markdown pre {
+    background-color: #2d3748;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    margin-bottom: 1rem;
+  }
+  
+  .markdown pre code {
+    background: none;
+    padding: 0;
+    color: #fbd38d;
+    font-family: 'Fira Code', monospace;
+  }
+  
+  /* Optional Syntax Highlighting - Basic styles */
+  .markdown pre code .hljs-comment,
+  .markdown pre code .hljs-quote {
+    color: #a0aec0;
+    font-style: italic;
+  }
+  
+  .markdown pre code .hljs-keyword,
+  .markdown pre code .hljs-selector-tag,
+  .markdown pre code .hljs-subst {
+    color: #f56565;
+  }
+  
+  .markdown pre code .hljs-number,
+  .markdown pre code .hljs-literal,
+  .markdown pre code .hljs-variable,
+  .markdown pre code .hljs-template-variable,
+  .markdown pre code .hljs-tag .hljs-attr {
+    color: #ed8936;
+  }
+  
+  .markdown pre code .hljs-string,
+  .markdown pre code .hljs-title,
+  .markdown pre code .hljs-section,
+  .markdown pre code .hljs-selector-id {
+    color: #68d391;
+  }
+  
+  .markdown pre code .hljs-title.class_ {
+    color: #63b3ed;
+  }
+  
+  .markdown pre code .hljs-doctag,
+  .markdown pre code .hljs-name {
+    color: #f6ad55;
+  }
+  
+  /* Responsive Images */
+  .markdown img {
+    max-width: 100%;
+    border-radius: 0.5rem;
+    margin: 1rem 0;
+  }
+    </style>
+  </head>
+  <body class="bg-gray-900 text-gray-100">
+    <div class="max-w-3xl mx-auto p-6 flex flex-col h-screen">
+      <header class="mb-6">
+        <p class="text-sm text-gray-400">nokk - technical assistant</p>
+      </header>
+
+      <!-- Chat window -->
+      <div id="chat-box" class="bg-gray-800 rounded-lg shadow-lg p-4 flex-1 overflow-y-auto flex flex-col space-y-2 mb-4">
+        <!-- Chat messages will be appended here -->
+      </div>
+
+      <!-- Chat input -->
+      <form id="chat-form" class="flex gap-3">
+        <input
+          id="chat-input"
+          type="text"
+          placeholder="Type your message..."
+          class="flex-1 p-3 rounded-lg bg-gray-700 border border-gray-600 text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 transition"
+          autocomplete="off"
+        />
+        <button
+          type="submit"
+          class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-3 rounded-lg transition"
+        >
+          Send
+        </button>
+      </form>
+
+      <!-- TTS Toggle -->
+      <div class="mt-4 flex items-center">
+        <input id="tts-toggle" type="checkbox" class="h-4 w-4 text-green-500 focus:ring-green-400 border-gray-600 rounded" />
+        <label for="tts-toggle" class="ml-2 text-sm text-gray-400">Enable TTS Streaming</label>
+      </div>
+    </div>
+
+    <!-- Include Marked for Markdown parsing -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- Include your app.js script -->
+    <script src="app.js"></script>
+  </body>
+</html>
