@@ -31,7 +31,7 @@ def add_documents(docs: List[str], metadatas: List[Dict] = None):
     )
     print(f"[vector_store] Added {len(docs)} docs. Total so far = {collection.count()}")
 
-def query_vector_store(query_embedding, top_k=3) -> List[Dict]:
+def query_vector_store(query_embedding, top_k=10) -> List[Dict]:
     results = collection.query(
         query_embeddings=[query_embedding],
         n_results=top_k
